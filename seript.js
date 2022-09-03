@@ -16,6 +16,7 @@ const lodeManu=manus=>{
         <h6 onclick="mainApi(${manu.category_id})"  class='text-decoration-none text-danger'>${manu.category_name}</h6>
         `
         manuDive.appendChild(li)
+        console.log(li)
     }
 }
 lodeApi()
@@ -24,7 +25,7 @@ lodeApi()
 
 // main api lode 
 const mainApi =(search)=>{
-    console.log(search)
+    // console.log(search)
     const url =`https://openapi.programming-hero.com/api/news/category/0${search}`
     fetch(url)
     .then(res => res.json())
@@ -33,11 +34,15 @@ const mainApi =(search)=>{
 mainApi()
 
 const lodeUi = newses=>{
+   // news length imput fild 
+   const newesLength =document.getElementById('news-length');
+   newesLength.innerText="total news category" +'   '+ newses.length;
    
     const div = document.getElementById('main-div');
     div.innerHTML =``;
     newses.forEach(news => {
         // console.log(news)
+
         const newDiv =document.createElement('div');
         newDiv.classList.add('col');
         newDiv.innerHTML =`
@@ -57,15 +62,12 @@ const lodeUi = newses=>{
                             <div class='d-flex col-3'>
                                 <img src="img/eye-solid.svg"  width="20px"  alt="...">
                                 <p class='mt-3 mx-2'>${news.total_view ? news.total_view :0}</p>
-                            </div>
-                            
-                            
+                            </div>       
                         </div>
                         <div class='text-center'>
                             <button class='btn btn-primary'> Deatls</button> 
                         </div>
                     </div>
-
                 </div>
             </div>
         `
