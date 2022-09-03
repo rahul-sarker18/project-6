@@ -9,14 +9,13 @@ const lodeManu=manus=>{
     const manuDive =document.getElementById('manu-div');
     for(const manu of manus){
         //
-        const li =document.createElement('li')
-        li.style.listStyle=('none')
-        li.classList.add('p-4')
-        li.innerHTML=`
+        const list =document.createElement('li')
+        list.style.listStyle=('none')
+        list.classList.add('p-4')
+        list.innerHTML=`
         <h6 onclick="mainApi(${manu.category_id})"  class='text-decoration-none text-danger'>${manu.category_name}</h6>
         `
-        manuDive.appendChild(li)
-        console.log(li)
+        manuDive.appendChild(list);
     }
 }
 lodeApi()
@@ -31,7 +30,7 @@ const mainApi =(search)=>{
     .then(res => res.json())
     .then(newses => lodeUi(newses.data))
 }
-mainApi()
+mainApi(08)
 
 const lodeUi = newses=>{
    // news length imput fild 
@@ -41,7 +40,7 @@ const lodeUi = newses=>{
     const div = document.getElementById('main-div');
     div.innerHTML =``;
     newses.forEach(news => {
-        // console.log(news)
+        // console.log(news._id)
 
         const newDiv =document.createElement('div');
         newDiv.classList.add('col');
@@ -65,7 +64,7 @@ const lodeUi = newses=>{
                             </div>       
                         </div>
                         <div class='text-center'>
-                            <button class='btn btn-primary'> Deatls</button> 
+                            <button onclick=" btnDtls('${news._id}')" class='btn btn-primary'> Deatls</button> 
                         </div>
                     </div>
                 </div>
@@ -74,3 +73,17 @@ const lodeUi = newses=>{
         div.appendChild(newDiv);
     });
 }
+
+// details buttons functions
+const btnDtls=(id)=>{
+    const ul =`https://openapi.programming-hero.com/api/news/${id}`
+    fetch(ul)
+    .then(res => res.json())
+    .then(detls => detailsBtn(detls.data))
+}
+const detailsBtn=(deatlsB)=>{
+    console.log(deatlsB[0])
+
+    
+}
+detailsBtn()
