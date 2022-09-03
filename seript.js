@@ -64,7 +64,7 @@ const lodeUi = newses=>{
                             </div>       
                         </div>
                         <div class='text-center'>
-                            <button onclick=" btnDtls('${news._id}')" class='btn btn-primary'> Deatls</button> 
+                            <button onclick=" btnDtls('${news._id}')" class='btn btn-info' data-bs-toggle="modal" data-bs-target="#exampleModal"> Deatls</button> 
                         </div>
                     </div>
                 </div>
@@ -81,9 +81,23 @@ const btnDtls=(id)=>{
     .then(res => res.json())
     .then(detls => detailsBtn(detls.data))
 }
-const detailsBtn=(deatlsB)=>{
-    console.log(deatlsB[0])
+const detailsBtn=(detls)=>{
+    // console.log(detls);
+    // const exampleModals =document.getElementById('exampleModal')
 
+    for(const dt of detls){
+        console.log(dt)
+        const h5= document.getElementById('exampleModalLabel');
+        h5.innerText = dt.author.name ?dt.author.name: 'no found'
+        const h4=document.getElementById('publict-det');
+
+        const bodys=  document.getElementById('modal-body')
+        bodys.innerHTML= `
+        <p>Published Date :  ${dt.author.published_date ? dt.author.published_date:'no found'}</p>
+        <img src="${ dt.author.img ? dt.author.img:'no fouend'}" class='w-50'>
+            
+        `
+    }
     
 }
 detailsBtn()
