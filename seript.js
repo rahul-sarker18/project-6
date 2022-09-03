@@ -13,10 +13,11 @@ const lodeManu=manus=>{
         list.style.listStyle=('none')
         list.classList.add('p-4')
         list.innerHTML=`
-        <h6 onclick="mainApi(${manu.category_id})"  class='text-decoration-none text-danger'>${manu.category_name}</h6>
+        <h6 onclick="mainApi(${manu.category_id})" style="cursor: pointer;"  class='text-decoration-none text-danger'>${manu.category_name}</h6>
         `
         manuDive.appendChild(list);
     }
+    spinner(true);
 }
 lodeApi()
 
@@ -24,11 +25,13 @@ lodeApi()
 
 // main api lode 
 const mainApi =(search)=>{
+    
     // console.log(search)
     const url =`https://openapi.programming-hero.com/api/news/category/0${search}`
     fetch(url)
     .then(res => res.json())
     .then(newses => lodeUi(newses.data))
+
 }
 mainApi(08)
 
@@ -72,6 +75,7 @@ const lodeUi = newses=>{
         `
         div.appendChild(newDiv);
     });
+    spinner(false);
 }
 
 // details buttons functions
@@ -94,10 +98,18 @@ const detailsBtn=(detls)=>{
         const bodys=  document.getElementById('modal-body')
         bodys.innerHTML= `
         <p>Published Date :  ${dt.author.published_date ? dt.author.published_date:'no found'}</p>
-        <img src="${ dt.author.img ? dt.author.img:'no fouend'}" class='w-50'>
-            
+        <img src="${ dt.author.img ? dt.author.img:'no fouend'}" class='w-50'>            
         `
-    }
-    
+    }    
 }
 detailsBtn()
+
+// spinner add function 
+const spinner = (istrue)=>{
+    const spinnerDiv =document.getElementById('spinner-div');
+    if(istrue === true){
+        spinnerDiv.classList.remove('d-none')
+    }else{
+        spinnerDiv.classList.add('d-none')
+    }
+}
