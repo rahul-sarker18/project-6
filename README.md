@@ -1,1 +1,1 @@
-# b6-news-portal-assignment-rahul-sarker18
+https://sparkling-mochi-708cd5.netlify.app/index.html
